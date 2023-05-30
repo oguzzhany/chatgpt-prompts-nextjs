@@ -99,6 +99,7 @@
 
 import { useEffect, useState } from "react";
 import PromptCard from "./PromptCard";
+import { headers } from "next/dist/client/components/headers";
 
 const PromptCardList = ({ data, handleTagClick }) => {
   return (
@@ -121,7 +122,13 @@ const Feed = () => {
   const handleSearchChange = (e) => {};
 
   const fetchPosts = async () => {
-    const response = await fetch("/api/prompt");
+    const response = await fetch("/api/prompt", {
+      method: "GET",
+      headers: {
+        "Cache-Control": "no-store",
+      },
+    });
+
     const data = await response.json();
 
     setPosts(data);
